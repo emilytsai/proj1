@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
+
 gem 'rails_serve_static_assets'
-gem 'rails_12factor'
 gem 'rails', '4.2.0'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -28,3 +28,4 @@ group :production do
 end
 
 ruby "2.2.0"
+gem 'rails_12factor', group: :production
