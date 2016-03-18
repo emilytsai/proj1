@@ -188,7 +188,6 @@ DEPENDENCIES
   rails (= 4.2.0)
   rails_12factor
   rails_layout
-  rails_serve_static_assets
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   simple_form
