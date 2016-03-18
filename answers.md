@@ -1,15 +1,22 @@
 # Q0: Why is this error being thrown?
+We have an uninitialized constant because the Pokemon model does not yet exist as a model.
 
 # Q1: How are the random Pokemon appearing? What is the common factor between all the possible Pokemon that appear? *
+The Pokemons appear because (1) we've seeded the database with four Pokemon, (2) in the `home_controller`, we have defined a variable `@pokemon` to represent a Pokemon in the database that is still currently without a trainer, and (3) in `views>home>index.html.erb`, we have Ruby code that prints the wild `@pokemon` is appearing, so long as both the wild `@pokemon` exists (there is a Pokemon without a trainer in the database) and there is a current trainer (a user is logged in).
 
 # Question 2a: What does the following line do "<%= button_to "Throw a Pokeball!", capture_path(id: @pokemon), :class => "button medium", :method => :patch %>"? Be specific about what "capture_path(id: @pokemon)" is doing. If you're having trouble, look at the Help section in the README.
+It creates a button that, once clicked, will call the patch route prefixed with `capture`. The `@pokemon` parameter (the current wild pokemon) is sent as the input parameter along the `capture_path`, which calls on the `#capture` action in the `pokemons_controller`. The capture method runs, and redirects back to the homepage via the `root_path`.
 
 # Question 3: What would you name your own Pokemon?
+Kodasaur
 
 # Question 4: What did you pass into the redirect_to? If it is a path, what did that path need? If it is not a path, why is it okay not to have a path here?
+I redirected to `:back`, which takes me back to the last page I came from (in this case, the Pokemon's trainer's page). This is not a defined path in the routes and it does not need anything else; it's okay to not have a path from the `routes.rb` because I'm just going back to the page I came from. I could have also used `redirect_to trainer_path(current_trainer.id)`. This path needs the current trainer's id because if we look at the routes, the URI pattern to show the trainer's profile page is `/trainers/:id(.:format)`, which requires the `:id` parameter to be passed in.
 
 # Question 5: Explain how putting this line "flash[:error] = @pokemon.errors.full_messages.to_sentence" shows error messages on your form.
+Values stored in the flash will only be available in the next request, as it is cleared out with each request. (Source: `http://guides.rubyonrails.org/action_controller_overview.html#the-flash`) Therefore, the flash feature stores the last input the user put in as the new Pokemon's name for potential flashes. If it was an empty input, the flash knows it was empty and flashes the appropriate error requesting that the user input a name; if it was a duplicate name, the flash knows that the name is already in the database and lets the user know that the name is not unique. Side note: error throwing can also be done in the `simple_form_for`; however, the error message throwing is not as tailored to each specific error because only one error message is preset into the code.
 
 # Give us feedback on the project and decal below!
+
 
 # Extra credit: Link your Heroku deployed app
